@@ -1,0 +1,44 @@
+<div class="login-container">
+  <div class="login-card">
+    
+    <img src="assets/logo.png" alt="University Logo" class="logo">
+
+    <h1>Administrator Sign In</h1>
+    <p class="subtitle">Manage school fees and student submissions</p>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+      <label>University Email</label>
+      <input 
+        type="email" 
+        name="email"
+        [(ngModel)]="email"
+        placeholder="name@liceo.edu.ph"
+        required
+      />
+
+      <label>Password</label>
+      <input 
+        type="password" 
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Enter your password"
+        required
+      />
+
+      <button type="submit">Access Portal</button>
+
+    </form>
+
+    <div class="divider"></div>
+
+    <p class="register">
+      Don't have an account? <a href="#">Register</a>
+    </p>
+
+    <footer>
+      © 2024 Liceo de Cagayan University - Pay-to-Permit System
+    </footer>
+
+  </div>
+</div>
