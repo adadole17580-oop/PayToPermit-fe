@@ -17,14 +17,20 @@
         required
       />
 
-      <label>Password</label>
-      <input 
-        type="password" 
-        name="password"
-        [(ngModel)]="password"
-        placeholder="Enter your password"
-        required
-      />
+      <div class="form-group">
+        <div class="label-row">
+          <label>Password</label>
+          <a href="#" class="forgot">Forgot password?</a>
+        </div>
+
+        <input 
+          type="password" 
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
 
       <button type="submit">Access Portal</button>
 
@@ -33,8 +39,9 @@
     <div class="divider"></div>
 
     <p class="register">
-      Don't have an account? <a href="#">Register</a>
+      Don't have an account? <a href="/register">Register</a>
     </p>
+
 
     <footer>
       © 2024 Liceo de Cagayan University - Pay-to-Permit System

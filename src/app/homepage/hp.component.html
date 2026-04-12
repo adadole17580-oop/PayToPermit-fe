@@ -1,9 +1,7 @@
 <div class="hero">
 
-  <!-- Dark Overlay -->
   <div class="overlay"></div>
 
-  <!-- Main Content -->
   <div class="content">
     <h1>Pay-to-Permit</h1>
     <p>School Cashier Management System</p>
@@ -13,7 +11,6 @@
       <button class="btn secondary" (click)="openUpload()">Upload Proof of Payment</button>
     </div>
 
-    <!-- Role Selection -->
     <div class="role-container">
       <button class="role-card" (click)="selectRole('student')">
         <h2>Student</h2>
@@ -29,13 +26,10 @@
 
 </div>
 
-<!-- Upload Modal -->
 <div class="modal" *ngIf="isUploadOpen">
 
-  <!-- Background shadow -->
   <div class="modal-overlay" (click)="closeUpload()"></div>
 
-  <!-- Modal box -->
   <div class="modal-content">
     <h3>Upload Proof of Payment</h3>
 

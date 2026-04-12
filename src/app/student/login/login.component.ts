@@ -21,7 +21,6 @@ export class StudentLoginComponent {
     if (this.email && this.password) {
       console.log('Login:', this.email);
 
-      // redirect after login
       this.router.navigate(['/student-dashboard']);
     } else {
       alert('Please fill in all fields');

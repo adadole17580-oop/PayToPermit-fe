@@ -17,6 +17,5 @@ export class AdminLoginComponent {
     console.log('Email:', this.email);
     console.log('Password:', this.password);
 
-    // TODO: connect to backend API
   }
 }

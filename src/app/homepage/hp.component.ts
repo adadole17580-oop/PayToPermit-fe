@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-homepage',
-   standalone: true,
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './hp.component.html',
   styleUrls: ['./hp.component.scss']

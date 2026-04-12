@@ -1,15 +1,16 @@
 import { Routes } from '@angular/router';
 
-// Import your components
 import { HomePageComponent } from './homepage/hp.component';
-import { StudentLoginComponent } from './studentlogin/login.component';
-import { AdminLoginComponent } from './adminlogin/login.component';
+import { StudentLoginComponent } from './student/login/login.component';
+import { AdminLoginComponent } from './admin/login/login.component';
+import { AdminRegisterComponent } from './admin/register/register.component';
+
 
 export const routes: Routes = [
-  { path: '', component: HomePageComponent }, // default page
+  { path: '', component: HomePageComponent }, 
   { path: 'student', component: StudentLoginComponent },
   { path: 'admin', component: AdminLoginComponent },
+  { path: 'register', component: AdminRegisterComponent },
 
-  // fallback (VERY IMPORTANT)
   { path: '**', redirectTo: '' }
 ];
