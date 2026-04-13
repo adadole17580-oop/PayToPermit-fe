@@ -5,6 +5,14 @@
   font-family: Arial, sans-serif;
 }
 
+.login-container {
+  height: 100vh;
+  background-color: #7b2e2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .bg-image {
   position: absolute;
   width: 100%;

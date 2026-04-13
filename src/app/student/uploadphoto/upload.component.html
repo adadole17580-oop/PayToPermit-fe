@@ -1,0 +1,27 @@
+<div class="modal-overlay">
+  <div class="modal">
+    <h3>Upload Receipt</h3>
+    <p>Select a file to upload for verification.</p>
+
+    <div
+      class="drop-zone"
+      (dragover)="onDragOver($event)"
+      (drop)="onDrop($event)"
+    >
+      <p>⬆</p>
+      <p>Drag and drop your file here</p>
+      <p>or</p>
+      <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+      <button (click)="fileInput.click()">Browse Files</button>
+    </div>
+
+    <small>Supported formats: JPG, PNG, PDF (Max 5MB)</small>
+
+    <div class="actions">
+      <button (click)="close.emit()">Cancel</button>
+      <button class="upload" [disabled]="!selectedFile" (click)="uploadFile()">
+        Upload Receipt
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,144 @@
+.notification-container {
+  padding: 20px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .nav button {
+    margin-left: 10px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    background: #ddd;
+    position: relative;
+    cursor: pointer;
+
+    &.active {
+      background: #7b3f3f;
+      color: white;
+    }
+
+    .badge {
+      background: red;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+    }
+  }
+}
+
+/* Title bar */
+.title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
+  .actions button {
+    margin-left: 10px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    background: #eee;
+    cursor: pointer;
+  }
+}
+
+/* Card */
+.card {
+  background: white;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Card header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .new-badge {
+    background: #7b3f3f;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+  }
+}
+
+/* Notification item */
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  background: #f9f9f9;
+
+  .icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
+  .content {
+    flex: 1;
+
+    h4 {
+      margin: 0;
+    }
+
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: #777;
+
+      .tag {
+        background: #7b3f3f;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 8px;
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .actions button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+
+  /* TYPES */
+  &.approved {
+    background: #d4edda;
+  }
+
+  &.warning {
+    background: #fff3cd;
+  }
+
+  &.error {
+    background: #f8d7da;
+  }
+
+  &.info {
+    background: #e2e3e5;
+  }
+}

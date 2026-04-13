@@ -1,0 +1,61 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div>
+      <h2 class="logo">📄 Pay-to-Permit System</h2>
+
+      <nav>
+        <button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
+        <button routerLink="/history" routerLinkActive="active">Payment History</button>
+        <button routerLink="/notifs" routerLinkActive="active">Notifications</button>
+        <button class="active">Reports</button>
+      </nav>
+    </div>
+
+    <button routerLink="/login" routerLinkActive="active">Sign Out</button>
+  </aside>
+
+  <main class="content">
+    <h2>Reports</h2>
+
+    <div class="summary">
+      <div class="card">
+        <p>Total Payments</p>
+        <h3>{{ summary.total }}</h3>
+      </div>
+
+      <div class="card">
+        <p>Approved</p>
+        <h3 class="green">{{ summary.approved }}</h3>
+      </div>
+
+      <div class="card">
+        <p>Rejected</p>
+        <h3 class="red">{{ summary.rejected }}</h3>
+      </div>
+    </div>
+
+    <div class="card table-card">
+      <h3>Monthly Breakdown</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Month starting</th>
+            <th>Total Payments</th>
+            <th>Approved</th>
+            <th>Rejected</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let m of monthly">
+            <td>{{ m.month }}</td>
+            <td>{{ m.total }}</td>
+            <td class="green">{{ m.approved }}</td>
+            <td class="red">{{ m.rejected }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>

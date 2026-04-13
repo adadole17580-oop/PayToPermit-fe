@@ -1,0 +1,98 @@
+<div class="admin-container">
+
+  <aside class="sidebar">
+    <h2 class="logo">📄 Pay-to-Permit System</h2>
+
+    <nav>
+      <button class="active">Dashboard</button>
+      <button routerLink="/history" routerLinkActive="active">Payment History</button>      
+      <button routerLink="/notifs" routerLinkActive="active">Notifications</button>
+      <button routerLink="/reports" routerLinkActive="active">Reports</button>
+    </nav>
+
+    <button class="logout">Sign Out</button>
+  </aside>
+
+  <div class="main">
+
+    <div class="header">
+      <div>
+        <h2>Receipt Review</h2>
+        <p>Review and approve student payment receipts</p>
+      </div>
+
+      <div class="admin-info">
+        <a routerLink="/profile" routerLinkActive="active">Admin User</a>
+        <small>adminuser@university.edu</small>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h4>Pending Today</h4>
+        <p>{{ pendingCount }} Receipts</p>
+      </div>
+
+      <div class="card">
+        <h4>Approved Today</h4>
+        <p>{{ approvedCount }} Receipt</p>
+      </div>
+
+      <div class="card">
+        <h4>Rejected Today</h4>
+        <p>{{ rejectedCount }} Receipt</p>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <h3>Submitted Receipts</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+            <th>Permit Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let receipt of receipts">
+            <td>{{ receipt.name }}</td>
+            <td>{{ receipt.date }}</td>
+
+            <td>
+              <span class="status" [ngClass]="receipt.status.toLowerCase()">
+                {{ receipt.status }}
+              </span>
+            </td>
+
+            <td>{{ receipt.permit || '—' }}</td>
+
+            <td class="actions">
+              <button (click)="viewReceipt(receipt)">View</button>
+
+              <button 
+                class="approve"
+                (click)="approve(receipt)"
+                [disabled]="receipt.status === 'Approved'">
+                Approve
+              </button>
+
+              <button 
+                class="reject"
+                (click)="reject(receipt)"
+                [disabled]="receipt.status === 'Rejected'">
+                Reject
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>

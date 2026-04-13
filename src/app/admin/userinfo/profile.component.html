@@ -1,0 +1,107 @@
+<div class="layout">
+
+  <header class="topbar">
+    <h2 class="logo">📄 Pay-to-Permit System</h2>
+
+    <div class="nav">
+      <button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
+      <button routerLink="/notifs" routerLinkActive="active">Notifications</button>
+      <button class="active">Profile</button>
+    </div>
+  </header>
+
+  <main class="content">
+
+    <div class="profile-card">
+      <div class="left">
+        <div class="avatar">JD</div>
+
+        <div>
+          <h3>{{ user.name }}</h3>
+          <p>{{ user.email }}</p>
+
+          <div class="meta">
+            <span>ID {{ user.id }}</span>
+            <span>Joined {{ user.joined }}</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="edit">Edit Profile</button>
+    </div>
+
+    <div class="card">
+      <h3>Personal Information</h3>
+
+      <div class="grid">
+        <div>
+          <label>Full Name</label>
+          <p>{{ user.name }}</p>
+        </div>
+
+        <div>
+          <label>Email Address</label>
+          <p>{{ user.email }}</p>
+        </div>
+
+        <div>
+          <label>Student ID</label>
+          <p>{{ user.id }}</p>
+        </div>
+
+        <div>
+          <label>Address</label>
+          <p>{{ user.address }}</p>
+        </div>
+
+        <div>
+          <label>Phone Number</label>
+          <p>{{ user.phone }}</p>
+        </div>
+
+        <div>
+          <label>Join Date</label>
+          <p>{{ user.joined }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Account Security</h3>
+
+      <div class="security">
+        <div class="row">
+          <div>
+            <strong>Password</strong>
+            <p>Last changed 30 days ago</p>
+          </div>
+          <button>Change Password</button>
+        </div>
+
+        <div class="row">
+          <div>
+            <strong>Two-Factor Authentication</strong>
+            <p>Add an extra layer of security</p>
+          </div>
+          <button>Enable 2FA</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card danger">
+      <h3>Account Action</h3>
+
+      <button class="logout">Log Out</button>
+
+      <hr>
+
+      <p class="warning">Warning!</p>
+      <p class="desc">
+        Once you delete your account, there is no going back. Please be certain.
+      </p>
+
+      <button class="delete">Delete Account</button>
+    </div>
+
+  </main>
+</div>

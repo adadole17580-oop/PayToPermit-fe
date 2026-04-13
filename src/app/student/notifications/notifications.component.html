@@ -1,0 +1,67 @@
+<div class="notification-container">
+  <!-- Header -->
+  <div class="header">
+    <h2>📄 Pay-to-Permit System</h2>
+
+    <div class="nav">
+      <button>Dashboard</button>
+
+      <button class="active">
+        Notifications
+        <span class="badge" *ngIf="unreadCount > 0">
+          {{ unreadCount }}
+        </span>
+      </button>
+
+      <button>Profile</button>
+      <button class="logout">Log out</button>
+    </div>
+  </div>
+
+  <!-- Title Section -->
+  <div class="title-bar">
+    <div>
+      <h1>Notifications</h1>
+      <p>You have {{ unreadCount }} unread notifications</p>
+    </div>
+
+    <div class="actions">
+      <button (click)="markAllAsRead()">Mark all as read</button>
+      <button (click)="clearAll()">Clear all</button>
+    </div>
+  </div>
+
+  <!-- Notifications Card -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Recent Notifications</h3>
+      <span class="new-badge">{{ unreadCount }} new</span>
+    </div>
+
+    <!-- Notification List -->
+    <div
+      class="notification-item"
+      *ngFor="let notif of notifications"
+      [ngClass]="notif.type"
+    >
+      <div class="icon">
+        {{ getIcon(notif.type) }}
+      </div>
+
+      <div class="content">
+        <h4>{{ notif.title }}</h4>
+        <p>{{ notif.message }}</p>
+
+        <div class="meta">
+          <span>{{ notif.time }}</span>
+          <span class="tag" *ngIf="!notif.read">New</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button (click)="markAsRead(notif)">✔</button>
+        <button (click)="deleteNotification(notif)">🗑</button>
+      </div>
+    </div>
+  </div>
+</div>

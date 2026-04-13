@@ -1,0 +1,71 @@
+<div class="layout">
+
+  <aside class="sidebar">
+    <h2 class="logo">📄 Pay-to-Permit</h2>
+
+    <nav>
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a class="active">Payment History</a>
+      <a routerLink="/notifs" routerLinkActive="active">Notifications</a>
+      <a routerLink="/reports" routerLinkActive="active">Reports</a>
+    </nav>
+
+    <button class="logout">Sign Out</button>
+  </aside>
+
+  <main class="content">
+
+    <div class="topbar">
+      <h2>Payment History</h2>
+      <div class="user">Admin User</div>
+    </div>
+
+    <div class="filters">
+      <input type="text" placeholder="Search by student name or permit number..." />
+      <select>
+        <option>All Status</option>
+        <option>Approved</option>
+        <option>Rejected</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Payment Records</h3>
+        <button class="export">Export CSV</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Permit #</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let r of records">
+            <td>{{ r.name }}</td>
+            <td>{{ r.permit }}</td>
+            <td>{{ r.date }}</td>
+            <td>\${{ r.amount }}</td>
+            <td>
+              <span [ngClass]="r.status === 'Approved' ? 'approved' : 'rejected'">
+                {{ r.status }}
+              </span>
+            </td>
+            <td>
+              <button class="view">View Receipt</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </main>
+</div>

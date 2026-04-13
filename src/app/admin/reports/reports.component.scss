@@ -1,0 +1,108 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  background: #f3f4f6;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  width: 240px;
+  background: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #e5e7eb;
+
+  .logo {
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #7c2d2d;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+    border: none;
+    background: none;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #374151;
+
+    &.active {
+      background: #7c2d2d;
+      color: #fff;
+    }
+
+    &:hover {
+      background: #f1f1f1;
+    }
+  }
+
+  .logout {
+    background: none;
+    border: none;
+    color: #7c2d2d;
+    cursor: pointer;
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 25px;
+}
+
+.summary {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+
+  .card {
+    flex: 1;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+
+    p {
+      font-size: 13px;
+      color: gray;
+    }
+
+    h3 {
+      margin-top: 5px;
+    }
+  }
+}
+
+.table-card {
+  margin-top: 10px;
+}
+
+table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    font-size: 12px;
+    color: gray;
+    padding-bottom: 10px;
+  }
+
+  td {
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+  }
+}
+
+.green {
+  color: #16a34a;
+}
+
+.red {
+  color: #dc2626;
+}

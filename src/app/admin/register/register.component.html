@@ -1,4 +1,4 @@
-<div class="container">
+<div class="register-container">
   <div class="card">
 
     <img src="assets/logo.png" class="logo" />
@@ -18,10 +18,11 @@
       <input type="password" placeholder="Confirm Password" />
     </div>
 
-    <button class="btn">Create Account</button>
+    <button routerLink="/dashboard" routerLinkActive="active">Create Account</button>
 
     <p class="signin">
-      Already have an account? <span>Sign In</span>
+      Already have an account? 
+      <a routerLink="/login">Sign In</a>
     </p>
 
   </div>

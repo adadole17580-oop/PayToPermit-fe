@@ -1,0 +1,45 @@
+<div class="page">
+
+  <div class="card">
+
+    <img src="assets/logo.png" class="logo" />
+
+    <h1>Reset your Password</h1>
+
+    <p class="description">
+      Enter your email address and we'll send you instructions<br />
+      to reset your password
+    </p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <label>Email Address</label>
+
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="admin@university.edu.ph"
+      />
+
+      <small class="hint">
+        Enter the email address associated with your account
+      </small>
+
+      <button type="submit" [disabled]="form.invalid">
+        ✉ Send Reset Instructions
+      </button>
+
+    </form>
+
+    <a routerLink="/homepage" class="back">← Back to Sign In</a>
+
+    <div class="divider"></div>
+
+    <p class="footer">
+      Remember your password?
+      <a routerLink="/homepage">Sign In Instead</a>
+    </p>
+
+  </div>
+
+</div>
