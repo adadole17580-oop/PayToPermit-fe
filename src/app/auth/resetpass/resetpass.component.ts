@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './resetpass.component.html',
   styleUrls: ['./resetpass.component.scss']
 })
-export class AdminResetPassComponent {
+export class ResetPassComponent {
 
   form: any; 
 

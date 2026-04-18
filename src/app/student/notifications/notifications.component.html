@@ -1,24 +1,22 @@
 <div class="notification-container">
-  <!-- Header -->
   <div class="header">
     <h2>📄 Pay-to-Permit System</h2>
 
     <div class="nav">
-      <button>Dashboard</button>
+      <button routerLink="/student/dashboard">Dashboard</button>
 
-      <button class="active">
+      <button class="active" routerLink="/student/notifications">
         Notifications
         <span class="badge" *ngIf="unreadCount > 0">
           {{ unreadCount }}
         </span>
       </button>
 
-      <button>Profile</button>
-      <button class="logout">Log out</button>
+      <button routerLink="/student/profile">Profile</button>
+      <button routerLink="/login"class="logout">Log out</button>
     </div>
   </div>
 
-  <!-- Title Section -->
   <div class="title-bar">
     <div>
       <h1>Notifications</h1>
@@ -31,14 +29,12 @@
     </div>
   </div>
 
-  <!-- Notifications Card -->
   <div class="card">
     <div class="card-header">
       <h3>Recent Notifications</h3>
       <span class="new-badge">{{ unreadCount }} new</span>
     </div>
 
-    <!-- Notification List -->
     <div
       class="notification-item"
       *ngFor="let notif of notifications"

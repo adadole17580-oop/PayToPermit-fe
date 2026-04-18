@@ -1,0 +1,31 @@
+<div class="layout">
+  <aside class="sidebar">
+    <h2 class="logo">📄 Pay-to-Permit System</h2>
+
+    <nav>
+      <button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
+      <button routerLink="/admin/history" routerLinkActive="active">Payment History</button>      
+      <button routerLink="/admin/notifs" routerLinkActive="active">Notifications</button>
+      <button routerLink="/admin/reports" routerLinkActive="active">Reports</button>
+    </nav>
+
+    <button routerLink="/login" class="logout">Sign Out</button>
+  </aside>
+
+  <main class="content">
+    <div class="header">
+      <div>
+        <h2>Notifications</h2>
+        <p class="sub">2 unread notifications</p>
+      </div>
+      <button class="clear" (click)="clearAllNotifs()">Clear All</button>
+    </div>
+
+    <div class="notif-list">
+      <div class="notif-card" *ngFor="let n of notifications" [ngClass]="n.type">
+        <div class="text">{{ n.message }}</div>
+        <div class="time">{{ n.time }}</div>
+      </div>
+    </div>
+  </main>
+</div>

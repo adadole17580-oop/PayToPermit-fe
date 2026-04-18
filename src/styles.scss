@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Web System Color Palette */
+  --c-maroon: #7B2E2E;
+  --c-maroon-dark: #5C2222;
+  --c-maroon-light: #9A3B3B;
+  --c-beige: #FDFBF7;
+  --c-beige-dark: #F2EBE3;
+  --c-white: #FFFFFF;
+  --c-text-main: #1A1A1A;
+  --c-text-muted: #666666;
+  --c-border: #E0E0E0;
+  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+  
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  --transition: all 0.2s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  background-color: var(--c-beige);
+  color: var(--c-text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Button Styling for Forms */
+button.primary-btn {
+  background: var(--c-maroon);
+  color: var(--c-white);
+  border: none;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  
+  &:hover:not([disabled]) {
+    background: var(--c-maroon-dark);
+    box-shadow: var(--shadow-sm);
+  }
+}

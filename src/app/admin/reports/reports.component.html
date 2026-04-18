@@ -1,17 +1,15 @@
 <div class="layout">
   <aside class="sidebar">
-    <div>
-      <h2 class="logo">📄 Pay-to-Permit System</h2>
+    <h2 class="logo">📄 Pay-to-Permit System</h2>
 
-      <nav>
-        <button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
-        <button routerLink="/history" routerLinkActive="active">Payment History</button>
-        <button routerLink="/notifs" routerLinkActive="active">Notifications</button>
-        <button class="active">Reports</button>
-      </nav>
-    </div>
+    <nav>
+      <button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
+      <button routerLink="/admin/history" routerLinkActive="active">Payment History</button>      
+      <button routerLink="/admin/notifs" routerLinkActive="active">Notifications</button>
+      <button routerLink="/admin/reports" routerLinkActive="active">Reports</button>
+    </nav>
 
-    <button routerLink="/login" routerLinkActive="active">Sign Out</button>
+    <button routerLink="/login" class="logout">Sign Out</button>
   </aside>
 
   <main class="content">

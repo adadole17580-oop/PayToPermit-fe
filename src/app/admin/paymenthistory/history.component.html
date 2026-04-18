@@ -1,16 +1,16 @@
 <div class="layout">
 
   <aside class="sidebar">
-    <h2 class="logo">📄 Pay-to-Permit</h2>
+    <h2 class="logo">📄 Pay-to-Permit System</h2>
 
     <nav>
-      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-      <a class="active">Payment History</a>
-      <a routerLink="/notifs" routerLinkActive="active">Notifications</a>
-      <a routerLink="/reports" routerLinkActive="active">Reports</a>
+      <button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
+      <button routerLink="/admin/history" routerLinkActive="active">Payment History</button>      
+      <button routerLink="/admin/notifs" routerLinkActive="active">Notifications</button>
+      <button routerLink="/admin/reports" routerLinkActive="active">Reports</button>
     </nav>
 
-    <button class="logout">Sign Out</button>
+    <button routerLink="/login" class="logout">Sign Out</button>
   </aside>
 
   <main class="content">
@@ -32,7 +32,7 @@
     <div class="card">
       <div class="card-header">
         <h3>Payment Records</h3>
-        <button class="export">Export CSV</button>
+        <button class="export" (click)="exportCSV()">Export CSV</button>
       </div>
 
       <table>
@@ -59,7 +59,7 @@
               </span>
             </td>
             <td>
-              <button class="view">View Receipt</button>
+              <button class="view" (click)="viewReceipt(r)">View Receipt</button>
             </td>
           </tr>
         </tbody>

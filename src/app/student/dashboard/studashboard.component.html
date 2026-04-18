@@ -1,16 +1,15 @@
 <div class="dashboard-container">
-  <!-- Header -->
   <div class="header">
-    <h2>📄 Pay-to-Permit System</h2>
+    <h2 class="logo">📄 Pay-to-Permit System</h2>
+    
     <div class="nav">
-      <button class="active">Dashboard</button>
-      <button>Notifications</button>
-      <button>Profile</button>
-      <button class="logout">Log Out</button>
+      <button class="active" routerLink="/student/dashboard">Dashboard</button>
+      <button routerLink="/student/notifications" routerLinkActive="active">Notifications</button>
+      <button routerLink="/student/profile" routerLinkActive="active">Profile</button>
+      <button class="logout" routerLink="/login">Log Out</button>
     </div>
   </div>
 
-  <!-- Upload Section -->
   <div class="card upload-card">
     <h3>Upload Payment Receipt</h3>
     <p>Submit your payment receipt for verification</p>
@@ -19,12 +18,11 @@
       <div class="upload-content">
         <p>⬆</p>
         <small>Supported formats: JPG, PNG, PDF (Max 5MB)</small>
-        <button>Choose File to Upload</button>
+        <button (click)="openUploadModal()">Choose File to Upload</button>
       </div>
     </div>
   </div>
 
-  <!-- Submission Table -->
   <div class="card">
     <h3>Submission Report</h3>
     <p>Track the status of your uploaded receipts</p>
@@ -48,7 +46,6 @@
     </div>
   </div>
 
-  <!-- Upload Modal -->
   <app-upload
     *ngIf="showUploadModal"
     (close)="closeUploadModal()"

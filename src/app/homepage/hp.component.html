@@ -1,26 +1,33 @@
-<div class="hero">
-
-  <div class="overlay"></div>
-
-  <div class="content">
-    <h1>Pay-to-Permit</h1>
-    <p>School Cashier Management System</p>
-
-    <div class="buttons">
-      <button class="btn primary" (click)="viewFees()">View Fees</button>
-      <button class="btn secondary" (click)="openUpload()">Upload Proof of Payment</button>
+<div class="homepage-layout">
+  
+  <div class="hp-sidebar">
+    <div class="logo-section">
+      <img src="assets/liceo-logo.png" alt="Liceo Logo" class="hp-logo" onerror="this.src='/assets/logo.png'">
+      <h1 class="hp-title">Pay-to-Permit</h1>
+      <p class="hp-subtitle">SCHOOL CASHIER<br>MANAGEMENT SYSTEM</p>
     </div>
 
-    <div class="role-container">
-      <button class="role-card" (click)="selectRole('student')">
-        <h2>Student</h2>
-        <p>Access your fees</p>
-      </button>
+    <div class="hp-sidebar-links">
+      <a (click)="viewFees()" class="hp-link">VIEW FEES</a>
+      <a (click)="openUpload()" class="hp-link">UPLOAD PROOF OF PAYMENT</a>
+    </div>
+  </div>
 
-      <button class="role-card" (click)="selectRole('admin')">
-        <h2>Admin</h2>
-        <p>Manage records</p>
-      </button>
+  <div class="hp-main">
+    <div class="content-wrapper">
+      <h1 class="main-title">Pay-to-Permit</h1>
+      <p class="main-subtitle">SCHOOL CASHIER MANAGEMENT SYSTEM</p>
+
+      <h3 class="role-prompt">Choose Your Role to Continue</h3>
+
+      <div class="role-buttons">
+        <button class="role-btn" (click)="goToLogin('student')">STUDENT</button>
+        <button class="role-btn" (click)="goToLogin('admin')">ADMIN</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2024 Pay-to-Permit. All rights reserved.
     </div>
   </div>
 
@@ -36,7 +43,15 @@
     <div class="upload-box">
       <p>Drag and drop your file here</p>
       <span>or</span>
-      <button>Browse Files</button>
+      <button (click)="fileInput.click()">Browse Files</button>
+
+      <input
+        type="file"
+        hidden
+        #fileInput
+        (change)="handleFile($event)"
+      />
+
       <small>Supported formats: JPG, PNG, PDF</small>
     </div>
 

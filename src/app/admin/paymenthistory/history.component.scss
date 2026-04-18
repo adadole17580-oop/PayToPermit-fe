@@ -1,69 +1,97 @@
 .layout {
   display: flex;
   height: 100vh;
-  background: #f5f6f8;
-  font-family: Arial, sans-serif;
+  background: var(--c-beige);
 }
 
 .sidebar {
-  width: 240px;
-  background: #fff;
+  width: 250px;
+  background: var(--c-maroon);
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
 
-  .logo {
-    font-size: 18px;
-    margin-bottom: 30px;
-  }
+.logo {
+  color: var(--c-white);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
 
-  nav a {
-    display: block;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: #333;
+.sidebar nav button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px 16px;
+  border: none;
+  text-align: left;
+  border-radius: var(--radius-md);
+  background: none;
+  cursor: pointer;
+  color: #fcebeb;
+  font-size: 15px;
+  transition: var(--transition);
+}
 
-    &.active {
-      background: #6b2c2c;
-      color: #fff;
-    }
+.sidebar nav button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--c-white);
+}
 
-    &:hover {
-      background: #eee;
-    }
-  }
+.sidebar .active {
+  background: var(--c-maroon-dark) !important;
+  color: var(--c-white);
+  font-weight: 600;
+}
 
-  .logout {
-    background: none;
-    border: none;
-    color: #6b2c2c;
-    cursor: pointer;
-  }
+.logout {
+  margin-top: 20px;
+  padding: 12px 16px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--c-white);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.logout:hover {
+  background: var(--c-maroon-dark);
 }
 
 .content {
   flex: 1;
-  padding: 20px;
+  padding: 30px 40px;
+  overflow-y: auto;
 }
 
 .topbar {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  
+  h2 { color: var(--c-text-main); }
 }
 
 .filters {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 25px;
 
   input, select {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--c-border);
+    outline: none;
+    transition: var(--transition);
+    
+    &:focus {
+      border-color: var(--c-maroon);
+      box-shadow: 0 0 0 3px rgba(123, 46, 46, 0.1);
+    }
   }
 
   input {
@@ -72,22 +100,35 @@
 }
 
 .card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--c-white);
+  border-radius: var(--radius-lg);
+  padding: 25px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--c-border);
 
   .card-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    h3 { color: var(--c-text-main); }
   }
 
   .export {
-    padding: 8px 12px;
-    border: none;
-    background: #eee;
-    border-radius: 6px;
+    padding: 10px 16px;
+    border: 1px solid var(--c-border);
+    background: var(--c-white);
+    border-radius: var(--radius-md);
     cursor: pointer;
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    
+    &:hover {
+      border-color: var(--c-maroon-light);
+      color: var(--c-maroon);
+    }
   }
 }
 
@@ -96,41 +137,54 @@ table {
   border-collapse: collapse;
 
   th, td {
-    padding: 12px;
+    padding: 14px 12px;
     text-align: left;
+    border-bottom: 1px solid var(--c-border);
   }
 
   th {
-    font-size: 12px;
-    color: #666;
+    font-size: 13px;
+    color: var(--c-text-muted);
+    font-weight: 500;
   }
-
-  tr {
-    border-top: 1px solid #eee;
+  
+  td {
+    color: var(--c-text-main);
+    font-size: 14px;
   }
 }
 
 .approved {
-  background: #d4f8e8;
-  color: green;
-  padding: 4px 10px;
+  background: #DCFCE7;
+  color: #166534;
+  padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
 }
 
 .rejected {
-  background: #ffd6d6;
-  color: red;
-  padding: 4px 10px;
+  background: #FEE2E2;
+  color: #991B1B;
+  padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
 }
 
-/* Button */
 .view {
-  padding: 6px 10px;
-  border: none;
-  background: #eee;
-  border-radius: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--c-border);
+  background: var(--c-white);
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  
+  &:hover {
+    background: var(--c-beige-dark);
+    color: var(--c-maroon);
+  }
 }

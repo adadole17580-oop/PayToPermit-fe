@@ -1,4 +1,4 @@
-.admin-container {
+.layout {
   display: flex;
   height: 100vh;
   background: var(--c-beige);
@@ -62,7 +62,7 @@
   background: var(--c-maroon-dark);
 }
 
-.main {
+.content {
   flex: 1;
   padding: 30px 40px;
   overflow-y: auto;
@@ -73,112 +73,61 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
-  
+
   h2 {
+    margin: 0;
     color: var(--c-text-main);
+  }
+
+  .sub {
+    font-size: 14px;
+    color: var(--c-text-muted);
+  }
+
+  .clear {
+    background: var(--c-white);
+    border: 1px solid var(--c-border);
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    
+    &:hover {
+      border-color: var(--c-maroon-light);
+      color: var(--c-maroon);
+    }
   }
 }
 
-.admin-info {
-  text-align: right;
-  color: var(--c-text-muted);
-  font-size: 14px;
-}
-
-.cards {
-  display: flex;
-  gap: 20px;
-  margin: 0 0 25px 0;
-}
-
-.card {
+.notif-list {
   background: var(--c-white);
-  padding: 25px;
   border-radius: var(--radius-lg);
-  flex: 1;
+  padding: 25px;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--c-border);
 }
 
-.table-card {
-  background: var(--c-white);
-  padding: 25px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+.notif-card {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
   border: 1px solid var(--c-border);
-}
+  background: var(--c-beige-dark);
 
-table {
-  width: 100%;
-  margin-top: 15px;
-  border-collapse: collapse;
-}
+  &.success { border-left: 4px solid #166534; }
+  &.error { border-left: 4px solid #991B1B; }
+  &.warning { border-left: 4px solid #92400E; }
 
-th, td {
-  padding: 14px 12px;
-  border-bottom: 1px solid var(--c-border);
-  text-align: left;
-}
+  .text {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: var(--c-text-main);
+  }
 
-th {
-  color: var(--c-text-muted);
-  font-weight: 500;
-  font-size: 14px;
-}
-
-td {
-  color: var(--c-text-main);
-  font-size: 14px;
-}
-
-/* Polished Status Badges */
-.status {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  display: inline-block;
-}
-
-.status.approved {
-  background: #DCFCE7;
-  color: #166534;
-}
-
-.status.pending {
-  background: #FEF3C7;
-  color: #92400E;
-}
-
-.status.rejected {
-  background: #FEE2E2;
-  color: #991B1B;
-}
-
-.actions button {
-  margin-right: 8px;
-  padding: 6px 12px;
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.actions .approve {
-  background: #DCFCE7;
-  color: #166534;
-}
-
-.actions .approve:hover {
-  background: #BBF7D0;
-}
-
-.actions .reject {
-  background: #FEE2E2;
-  color: #991B1B;
-}
-
-.actions .reject:hover {
-  background: #FECACA;
+  .time {
+    font-size: 12px;
+    color: var(--c-text-muted);
+  }
 }

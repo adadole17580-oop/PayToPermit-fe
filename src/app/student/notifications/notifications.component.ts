@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 interface Notification {
   title: string;
@@ -10,10 +12,11 @@ interface Notification {
 
 @Component({
   selector: 'app-notification',
-  templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  imports: [ CommonModule, RouterModule ],
+  templateUrl: './notifications.component.html',
+  styleUrls: ['./notifications.component.scss']
 })
-export class NotificationComponent {
+export class NotificationsComponent {
 
   notifications: Notification[] = [
     {

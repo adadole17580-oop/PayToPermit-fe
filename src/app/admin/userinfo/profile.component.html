@@ -4,8 +4,8 @@
     <h2 class="logo">📄 Pay-to-Permit System</h2>
 
     <div class="nav">
-      <button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
-      <button routerLink="/notifs" routerLinkActive="active">Notifications</button>
+      <button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
+      <button routerLink="/admin/notifs" routerLinkActive="active">Notifications</button>
       <button class="active">Profile</button>
     </div>
   </header>
@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <button class="edit">Edit Profile</button>
+      <button class="edit" (click)="editProfile()">Edit Profile</button>
     </div>
 
     <div class="card">
@@ -75,7 +75,7 @@
             <strong>Password</strong>
             <p>Last changed 30 days ago</p>
           </div>
-          <button>Change Password</button>
+          <button (click)="changePassword()">Change Password</button>
         </div>
 
         <div class="row">
@@ -83,7 +83,7 @@
             <strong>Two-Factor Authentication</strong>
             <p>Add an extra layer of security</p>
           </div>
-          <button>Enable 2FA</button>
+          <button (click)="enable2FA()">Enable 2FA</button>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
     <div class="card danger">
       <h3>Account Action</h3>
 
-      <button class="logout">Log Out</button>
+      <button class="logout" (click)="logout()">Log Out</button>
 
       <hr>
 
@@ -100,7 +100,7 @@
         Once you delete your account, there is no going back. Please be certain.
       </p>
 
-      <button class="delete">Delete Account</button>
+      <button class="delete" (click)="deleteAccount()">Delete Account</button>
     </div>
 
   </main>

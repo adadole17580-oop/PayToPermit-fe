@@ -4,25 +4,38 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  width: 350px;
+  background: var(--c-white);
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  width: 440px;
   text-align: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--c-border);
 }
 
 .drop-zone {
-  border: 2px dashed #ccc;
-  padding: 20px;
-  margin: 15px 0;
-  border-radius: 10px;
+  border: 2px dashed var(--c-border);
+  padding: 30px;
+  margin: 20px 0;
+  border-radius: var(--radius-md);
+  background: var(--c-beige);
+  transition: var(--transition);
+  color: var(--c-text-main);
+  font-size: 15px;
+
+  &:hover {
+    border-color: var(--c-maroon);
+    background: var(--c-beige-dark);
+  }
 }
 
 .actions {
@@ -30,14 +43,27 @@
   justify-content: space-between;
 
   button {
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: none;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--c-border);
     cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+    background: var(--c-white);
+    color: var(--c-text-main);
+
+    &:hover {
+      background: var(--c-beige-dark);
+    }
   }
 
   .upload {
-    background: #7b3f3f;
-    color: white;
+    background: var(--c-maroon);
+    color: var(--c-white);
+    border: none;
+
+    &:hover {
+      background: var(--c-maroon-dark);
+    }
   }
 }

@@ -4,13 +4,13 @@
     <h2 class="logo">📄 Pay-to-Permit System</h2>
 
     <nav>
-      <button class="active">Dashboard</button>
-      <button routerLink="/history" routerLinkActive="active">Payment History</button>      
-      <button routerLink="/notifs" routerLinkActive="active">Notifications</button>
-      <button routerLink="/reports" routerLinkActive="active">Reports</button>
+      <button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
+      <button routerLink="/admin/history" routerLinkActive="active">Payment History</button>      
+      <button routerLink="/admin/notifs" routerLinkActive="active">Notifications</button>
+      <button routerLink="/admin/reports" routerLinkActive="active">Reports</button>
     </nav>
 
-    <button class="logout">Sign Out</button>
+    <button routerLink="/login" class="logout">Sign Out</button>
   </aside>
 
   <div class="main">
@@ -22,7 +22,7 @@
       </div>
 
       <div class="admin-info">
-        <a routerLink="/profile" routerLinkActive="active">Admin User</a>
+        <a routerLink="/admin/profile" routerLinkActive="active">Admin User</a>
         <small>adminuser@university.edu</small>
       </div>
     </div>

@@ -1,0 +1,81 @@
+<div class="register-container">
+  <div class="card">
+
+    <img src="assets/logo.png" class="logo" />
+
+    <h2>Create your Account</h2>
+
+    <p *ngIf="selectedRole">
+      Registering as: <strong>{{ selectedRole }}</strong>
+    </p>
+
+    <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+
+      <div class="grid">
+
+        <input 
+          type="text" 
+          name="fullname"
+          [(ngModel)]="fullname"
+          placeholder="Full Name"
+          required
+        />
+
+        <input 
+          type="text" 
+          name="id"
+          [(ngModel)]="id"
+          placeholder="Student/Staff ID"
+          required
+        />
+
+        <input 
+          type="email" 
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Email Address"
+          required
+        />
+
+        <select 
+          name="department"
+          [(ngModel)]="department"
+          required
+        >
+          <option value="" disabled selected>Select Department</option>
+          <option value="IT">IT</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Business">Business</option>
+        </select>
+
+        <input 
+          type="password" 
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Password"
+          required
+        />
+
+        <input 
+          type="password" 
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirm Password"
+          required
+        />
+
+      </div>
+
+      <button type="submit" [disabled]="!registerForm.valid">
+        Create Account
+      </button>
+
+    </form>
+
+    <p class="signin">
+      Already have an account?
+      <a routerLink="/login">Sign In</a>
+    </p>
+
+  </div>
+</div>

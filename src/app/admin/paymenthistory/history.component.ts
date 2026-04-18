@@ -28,4 +28,11 @@ export class AdminHistoryComponent {
     { name: 'Christopher Thomas', permit: 'PMT-2026-006', date: '1/18/2026', amount: 150, status: 'Approved' }
   ];
 
+  exportCSV() {
+    alert('Exporting records to CSV.');
+  }
+
+  viewReceipt(record: PaymentRecord) {
+    alert(`Displaying receipt for ${record.name}.`);
+  }
 }

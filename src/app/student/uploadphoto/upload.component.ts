@@ -1,43 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-studashboard',
-  templateUrl: './studashboard.component.html',
-  styleUrls: ['./studashboard.component.scss']
+  selector: 'app-upload',
+  imports: [ RouterModule ],
+  templateUrl: './upload.component.html',
+  styleUrls: ['./upload.component.scss']
 })
-export class StudashboardComponent {
-  showUploadModal = false;
+export class UploadComponent {
+  @Output() close = new EventEmitter<void>();
+  @Output() upload = new EventEmitter<File>();
 
-  submissions = [
-    {
-      file: 'payment_receipt_2026.pdf',
-      permit: 'PMT2600129',
-      status: 'approved'
-    },
-    {
-      file: 'tuition_payment.jpg',
-      permit: '-',
-      status: 'pending'
+  selectedFile: File | null = null;
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    if (event.dataTransfer?.files.length) {
+      this.selectedFile = event.dataTransfer.files[0];
     }
-  ];
-
-  openUploadModal() {
-    this.showUploadModal = true;
   }
 
-  closeUploadModal() {
-    this.showUploadModal = false;
-  }
-
-  handleUpload(file: File) {
-    console.log('Uploaded:', file);
-
-    this.submissions.push({
-      file: file.name,
-      permit: 'Pending',
-      status: 'pending'
-    });
-
-    this.closeUploadModal();
+  uploadFile() {
+    if (this.selectedFile) {
+      this.upload.emit(this.selectedFile);
+    }
   }
 }

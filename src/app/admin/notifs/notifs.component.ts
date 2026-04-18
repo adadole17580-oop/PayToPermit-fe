@@ -43,4 +43,8 @@ export class AdminNotifsComponent {
       type: 'warning'
     }
   ];
+
+  clearAllNotifs() {
+    this.notifications = [];
+  }
 }

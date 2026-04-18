@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { UploadComponent } from '../uploadphoto/upload.component';
 
 @Component({
-  selector: 'app-studashboard',
+  standalone: true,
+  imports: [CommonModule, RouterModule, UploadComponent],
   templateUrl: './studashboard.component.html',
   styleUrls: ['./studashboard.component.scss']
 })
+
 export class StudashboardComponent {
   showUploadModal = false;
 
