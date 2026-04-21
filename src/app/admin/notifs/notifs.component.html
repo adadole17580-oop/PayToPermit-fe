@@ -9,7 +9,7 @@
       <button routerLink="/admin/reports" routerLinkActive="active">Reports</button>
     </nav>
 
-    <button routerLink="/login" class="logout">Sign Out</button>
+    <button class="logout" (click)="logout()">Sign Out</button>
   </aside>
 
   <main class="content">
@@ -18,7 +18,7 @@
         <h2>Notifications</h2>
         <p class="sub">2 unread notifications</p>
       </div>
-      <button class="clear" (click)="clearAllNotifs()">Clear All</button>
+      <button class="clear" (click)="markAllAsRead()">Mark all as read</button>
     </div>
 
     <div class="notif-list">

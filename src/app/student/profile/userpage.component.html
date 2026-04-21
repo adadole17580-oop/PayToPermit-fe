@@ -7,7 +7,7 @@
       <button routerLink="/student/dashboard" routerLinkActive="active">Dashboard</button>
       <button routerLink="/student/notifications" routerLinkActive="active">Notifications</button>
       <button class="active">Profile</button>
-      <button class="logout" routerLink="/login">Log Out</button>
+      <button class="logout" (click)="logout()">Log Out</button>
     </div>
   </header>
 
@@ -28,7 +28,11 @@
         </div>
       </div>
 
-      <button class="edit" (click)="editProfile()">Edit Profile</button>
+      <button class="edit" *ngIf="!isEditMode" (click)="editProfile()">Edit Profile</button>
+      <div class="button-group" *ngIf="isEditMode">
+        <button class="save" (click)="saveProfile()">Save</button>
+        <button class="cancel" (click)="cancelEdit()">Cancel</button>
+      </div>
     </div>
 
     <div class="card">
@@ -37,12 +41,14 @@
       <div class="grid">
         <div>
           <label>Full Name</label>
-          <p>{{ user.name }}</p>
+          <p *ngIf="!isEditMode">{{ user.name }}</p>
+          <input *ngIf="isEditMode" [(ngModel)]="editedUser.name" type="text" placeholder="Full Name" />
         </div>
 
         <div>
           <label>Email Address</label>
-          <p>{{ user.email }}</p>
+          <p *ngIf="!isEditMode">{{ user.email }}</p>
+          <input *ngIf="isEditMode" [(ngModel)]="editedUser.email" type="email" placeholder="Email Address" />
         </div>
 
         <div>
@@ -52,12 +58,19 @@
 
         <div>
           <label>Address</label>
-          <p>{{ user.address }}</p>
+          <p *ngIf="!isEditMode">{{ user.address }}</p>
+          <input *ngIf="isEditMode" [(ngModel)]="editedUser.address" type="text" placeholder="Address" />
         </div>
 
         <div>
           <label>Phone Number</label>
-          <p>{{ user.phone }}</p>
+          <p *ngIf="!isEditMode">{{ user.phone }}</p>
+          <input *ngIf="isEditMode" [(ngModel)]="editedUser.phone" type="tel" placeholder="Phone Number" />
+        </div>
+
+        <div>
+          <label>Department</label>
+          <p>{{ user.department }}</p>
         </div>
 
         <div>
@@ -78,20 +91,16 @@
           </div>
           <button (click)="changePassword()">Change Password</button>
         </div>
-
-        <div class="row">
-          <div>
-            <strong>Two-Factor Authentication</strong>
-            <p>Add an extra layer of security</p>
-          </div>
-          <button (click)="enable2FA()">Enable 2FA</button>
-        </div>
       </div>
     </div>
 
     <div class="card danger">
       <h3>Account Action</h3>
 
+      <p class="warning">Warning!</p>
+      <p class="desc">
+        Are you sure you want to log out your account. Please be certain.
+      </p>
       <button class="logout" (click)="logout()">Log Out</button>
 
       <hr>
@@ -102,6 +111,34 @@
       </p>
 
       <button class="delete" (click)="deleteAccount()">Delete Account</button>
+    </div>
+
+    <!-- Password Modal -->
+    <div class="modal-overlay" *ngIf="showPasswordModal" (click)="closePasswordModal()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Change Password</h2>
+          <button class="close-btn" (click)="closePasswordModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Current Password</label>
+            <input [(ngModel)]="passwordData.currentPassword" type="password" placeholder="Enter current password" />
+          </div>
+          <div class="form-group">
+            <label>New Password</label>
+            <input [(ngModel)]="passwordData.newPassword" type="password" placeholder="Enter new password" />
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input [(ngModel)]="passwordData.confirmPassword" type="password" placeholder="Confirm new password" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="cancel-btn" (click)="closePasswordModal()">Cancel</button>
+          <button class="save-btn" (click)="savePassword()">Save Password</button>
+        </div>
+      </div>
     </div>
 
   </main>

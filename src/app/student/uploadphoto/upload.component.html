@@ -17,6 +17,10 @@
 
     <small>Supported formats: JPG, PNG, PDF (Max 5MB)</small>
 
+    <div *ngIf="selectedFile" class="file-preview">
+      <p><strong>Selected file:</strong> {{ displayFileName }}</p>
+    </div>
+
     <div class="actions">
       <button (click)="close.emit()">Cancel</button>
       <button class="upload" [disabled]="!selectedFile" (click)="uploadFile()">

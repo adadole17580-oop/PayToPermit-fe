@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 interface Notification {
+  id?: number;
   message: string;
   time: string;
   type: 'success' | 'error' | 'warning';
+  read: boolean;
 }
 
 @Component({
@@ -15,36 +18,70 @@ interface Notification {
   templateUrl: './notifs.component.html',
   styleUrls: ['./notifs.component.scss']
 })
-export class AdminNotifsComponent {
-  notifications: Notification[] = [
-    {
-      message: 'Payment receipt from John Smith has been approved. Permit number PMT-2026-007 has been generated.',
-      time: '14 hrs ago',
-      type: 'success'
-    },
-    {
-      message: 'New payment receipt submitted by Sarah Johnson requires your review.',
-      time: '16 hrs ago',
-      type: 'error'
-    },
-    {
-      message: 'Payment receipt from David Wilson was rejected due to unclear documentation.',
-      time: '1 day ago',
-      type: 'error'
-    },
-    {
-      message: 'Payment receipt from Emily Davis has been approved. Permit number PMT-2026-008 has been generated.',
-      time: '1 day ago',
-      type: 'success'
-    },
-    {
-      message: 'System maintenance scheduled for Sunday, February 2nd from 2:00AM to 4:00AM.',
-      time: '',
-      type: 'warning'
-    }
-  ];
+export class AdminNotifsComponent implements OnInit {
+  constructor(private router: Router, private authService: AuthService) {}
 
-  clearAllNotifs() {
-    this.notifications = [];
+  adminId: string = 'ADM001'; // This should come from auth service
+  isLoading = false;
+  notifications: Notification[] = [];
+
+  ngOnInit() {
+    this.loadNotifications();
+  }
+
+  loadNotifications() {
+    this.isLoading = true;
+    this.authService.getNotifications(this.adminId, 'admin').subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.notifications = response.notifications.map((notif: any) => ({
+            id: notif.id,
+            message: `${notif.title}: ${notif.message}`,
+            time: this.formatTime(notif.created_at),
+            type: notif.type,
+            read: notif.read
+          }));
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading notifications:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  formatTime(dateString: string): string {
+    if (!dateString) return 'just now';
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return 'just now';
+    if (diffMins < 60) return `${diffMins} min ago`;
+    if (diffHours < 24) return `${diffHours} hr ago`;
+    if (diffDays < 7) return `${diffDays} day ago`;
+    return '';
+  }
+
+  markAllAsRead() {
+    this.authService.markAllNotificationsAsRead(this.adminId, 'admin').subscribe({
+      next: () => {
+        this.notifications.forEach(n => n.read = true);
+      },
+      error: (error) => {
+        console.error('Error marking all notifications as read:', error);
+      }
+    });
+  }
+
+  logout() {
+    if (confirm('Are you sure you want to log out your account?')) {
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
   }
 }

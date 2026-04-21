@@ -1,7 +1,7 @@
 <div class="register-container">
   <div class="card">
 
-    <img src="assets/logo.png" class="logo" />
+    <img src="applogo.png" class="logo" />
 
     <h2>Create your Account</h2>
 
@@ -13,56 +13,48 @@
 
       <div class="grid">
 
-        <input 
-          type="text" 
-          name="fullname"
-          [(ngModel)]="fullname"
-          placeholder="Full Name"
-          required
-        />
+        <input type="text" name="fullname" [(ngModel)]="fullname" placeholder="Full Name" required />
 
-        <input 
-          type="text" 
-          name="id"
-          [(ngModel)]="id"
-          placeholder="Student/Staff ID"
-          required
-        />
+        <input type="text" name="id" [(ngModel)]="id" placeholder="Student/Staff ID" required />
 
-        <input 
-          type="email" 
-          name="email"
-          [(ngModel)]="email"
-          placeholder="Email Address"
-          required
-        />
+        <input type="email" name="email" [(ngModel)]="email" placeholder="Email Address" required
+          pattern=".+@liceo\.edu\.ph" #emailInput="ngModel" />
 
-        <select 
-          name="department"
-          [(ngModel)]="department"
-          required
-        >
+        <div *ngIf="emailInput.touched && emailInput.invalid" class="error">
+          Please enter a valid liceo.edu.ph email address.
+        </div>
+
+        <input type="text" name="address" [(ngModel)]="address" placeholder="Address" required />
+
+        <input type="tel" name="phone" [(ngModel)]="phone" placeholder="Phone Number" required />
+
+        <select name="department" [(ngModel)]="department" required *ngIf="selectedRole === 'student'">
           <option value="" disabled selected>Select Department</option>
-          <option value="IT">IT</option>
-          <option value="Engineering">Engineering</option>
-          <option value="Business">Business</option>
+          <option value="Grade School">Grade School</option>
+          <option value="Junior High School">Junior High School</option>
+          <option value="Senior High School">Senior High School</option>
+          <option value="College of Arts and Sciences">College of Arts and Sciences</option>
+          <option value="School of Business, Management and Accountancy">School of Business, Management and Accountancy
+          </option>
+          <option value="College of Engineering">College of Engineering</option>
+          <option value="College of Criminal Justice">College of Criminal Justice</option>
+          <option value="College of Information Technology">College of Information Technology</option>
+          <option value="College of Medical Laboratory Science">College of Medical Laboratory Science</option>
+          <option value="Conservatory of Music, Theater and Dance">Conservatory of Music, Theater and Dance</option>
+          <option value="College of Nursing">College of Nursing</option>
+          <option value="College of Dentistry"> College of Dentistry</option>
+          <option value="College of Pharmacy"> College of Pharmacy</option>
+          <option value="College of Rehabilitation Sciences">College of Rehabilitation Sciences</option>
+          <option value="College of Radiologic Technology">College of Radiologic Technology</option>
+          <option value="College of Teacher Education">College of Teacher Education</option>
+          <option value="College of Law">College of Law</option>
+          <option value="Graduate School">Graduate School</option>
         </select>
 
-        <input 
-          type="password" 
-          name="password"
-          [(ngModel)]="password"
-          placeholder="Password"
-          required
-        />
+        <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required *ngIf="selectedRole === 'student' || selectedRole === 'admin'" />
 
-        <input 
-          type="password" 
-          name="confirmPassword"
-          [(ngModel)]="confirmPassword"
-          placeholder="Confirm Password"
-          required
-        />
+        <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirm Password"
+          required />
 
       </div>
 

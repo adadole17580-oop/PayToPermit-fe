@@ -1,8 +1,7 @@
 <div class="page">
-
   <div class="card">
 
-    <img src="assets/logo.png" class="logo" />
+    <img src="applogo.png" class="logo" />
 
     <h1>Reset your Password</h1>
 
@@ -18,12 +17,30 @@
       <input
         type="email"
         formControlName="email"
-        placeholder="admin@university.edu.ph"
+        placeholder="user@liceo.edu.ph"
       />
 
       <small class="hint">
-        Enter the email address associated with your account
+        Enter your Liceo email address
       </small>
+
+      <!-- ✅ Error Messages -->
+      <div
+        class="error"
+        *ngIf="form.get('email')?.touched && form.get('email')?.invalid"
+      >
+        <small *ngIf="form.get('email')?.errors?.['required']">
+          Email is required
+        </small>
+
+        <small *ngIf="form.get('email')?.errors?.['email']">
+          Enter a valid email format
+        </small>
+
+        <small *ngIf="form.get('email')?.errors?.['pattern']">
+          Only @liceo.edu.ph emails are allowed
+        </small>
+      </div>
 
       <button type="submit" [disabled]="form.invalid">
         ✉ Send Reset Instructions
@@ -41,5 +58,4 @@
     </p>
 
   </div>
-
 </div>

@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="card">
+    <div class="icon">
+      <div class="check-circle">
+        ✓
+      </div>
+    </div>
+
+    <h2>Check Your Email</h2>
+    <p class="subtitle">
+      We've sent password reset instructions to your email
+    </p>
+
+    <div class="email-box">
+      <div class="email-icon">✉</div>
+      <p class="email">{{ email }}</p>
+      <p class="note">
+        If this email is registered, you'll receive password reset instructions
+        within a few minutes.
+      </p>
+    </div>
+
+    <button class="back-btn" (click)="goBack()">
+      ← Back to Sign In
+    </button>
+
+    <p class="retry" (click)="resendEmail()">
+      Didn't receive the email? <span>Try again</span>
+    </p>
+
+    <hr />
+
+    <p class="footer">
+      Make sure to check your spam folder if you don't see the email in your inbox.
+    </p>
+
+    <p class="support">
+      Need help? Contact
+      <a href="mailto:support@university.edu">support@university.edu</a>
+    </p>
+  </div>
+</div>

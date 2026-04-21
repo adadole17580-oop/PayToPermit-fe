@@ -1,27 +1,45 @@
-import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-adminresetpass',
+  selector: 'app-reset',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './resetpass.component.html',
   styleUrls: ['./resetpass.component.scss']
 })
-export class ResetPassComponent {
+export class ResetPassComponent implements OnInit {
 
-  form: any; 
+  form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(/^[a-zA-Z0-9._%+-]+@liceo\.edu\.ph$/)
+        ]
+      ]
     });
   }
 
   submit() {
-    if (this.form.valid) {
-      console.log(this.form.value);
-    }
+    if (this.form.invalid) return;
+
+    const email = this.form.value.email;
+
+    this.router.navigate(['/reset-instructions'], {
+      state: { email }
+    });
   }
 }

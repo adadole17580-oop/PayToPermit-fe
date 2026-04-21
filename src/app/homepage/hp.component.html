@@ -1,8 +1,8 @@
 <div class="homepage-layout">
-  
+
   <div class="hp-sidebar">
     <div class="logo-section">
-      <img src="assets/liceo-logo.png" alt="Liceo Logo" class="hp-logo" onerror="this.src='/assets/logo.png'">
+      <img src="applogo.png" alt="Liceo Logo" class="hp-logo" onerror="this.src='/applogo.png'">
       <h1 class="hp-title">Pay-to-Permit</h1>
       <p class="hp-subtitle">SCHOOL CASHIER<br>MANAGEMENT SYSTEM</p>
     </div>
@@ -33,10 +33,26 @@
 
 </div>
 
+<!-- Fees Modal -->
+<div class="modal" *ngIf="fees.length > 0">
+  <div class="modal-overlay" (click)="fees = []"></div>
+  <div class="modal-content">
+    <h3>School Fees</h3>
+    <div class="fees-list">
+      <div *ngFor="let fee of fees" class="fee-item">
+        <h4>{{ fee.name }}</h4>
+        <p>{{ fee.description }}</p>
+        <p class="fee-amount">₱{{ fee.amount }}</p>
+        <p class="fee-category">{{ fee.category }}</p>
+      </div>
+    </div>
+    <button class="close-btn" (click)="fees = []">Close</button>
+  </div>
+</div>
+
+<!-- Upload Modal -->
 <div class="modal" *ngIf="isUploadOpen">
-
   <div class="modal-overlay" (click)="closeUpload()"></div>
-
   <div class="modal-content">
     <h3>Upload Proof of Payment</h3>
 
@@ -45,17 +61,18 @@
       <span>or</span>
       <button (click)="fileInput.click()">Browse Files</button>
 
-      <input
-        type="file"
-        hidden
-        #fileInput
-        (change)="handleFile($event)"
-      />
+      <input type="file" hidden #fileInput (change)="handleFile($event)" />
 
       <small>Supported formats: JPG, PNG, PDF</small>
     </div>
 
-    <button class="close-btn" (click)="closeUpload()">Close</button>
-  </div>
+    <div *ngIf="selectedFile" class="selected-file">
+      <p>Selected: {{ selectedFile.name }}</p>
+    </div>
 
+    <div class="modal-buttons">
+      <button class="upload-btn" (click)="uploadProof()" [disabled]="!selectedFile">Upload</button>
+      <button class="close-btn" (click)="closeUpload()">Close</button>
+    </div>
+  </div>
 </div>

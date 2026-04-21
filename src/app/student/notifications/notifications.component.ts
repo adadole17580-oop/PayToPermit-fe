@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 interface Notification {
+  id?: number;
   title: string;
   message: string;
   time: string;
@@ -16,64 +18,82 @@ interface Notification {
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
-export class NotificationsComponent {
+export class NotificationsComponent implements OnInit {
+  constructor(private router: Router, private authService: AuthService) {}
 
-  notifications: Notification[] = [
-    {
-      title: 'Receipt Approved',
-      message: 'Your payment receipt has been approved.',
-      time: '2 min ago',
-      type: 'approved',
-      read: false
-    },
-    {
-      title: 'New Receipt Uploaded',
-      message: 'You uploaded a new receipt for review.',
-      time: '10 min ago',
-      type: 'error',
-      read: false
-    },
-    {
-      title: 'Pending Review',
-      message: 'Your receipt is under review.',
-      time: '44 min ago',
-      type: 'warning',
-      read: true
-    },
-    {
-      title: 'Receipt Rejected',
-      message: 'Your receipt was rejected. Please upload a clearer image.',
-      time: '1 hr ago',
-      type: 'error',
-      read: true
-    },
-    {
-      title: 'System Maintenance',
-      message: 'Scheduled maintenance on January 25.',
-      time: '1 day ago',
-      type: 'info',
-      read: true
-    }
-  ];
+  userId: string = '2024-00123'; // This should come from auth service
+  isLoading = false;
+  notifications: Notification[] = [];
+
+  ngOnInit() {
+    this.loadNotifications();
+  }
+
+  loadNotifications() {
+    this.isLoading = true;
+    this.authService.getNotifications(this.userId, 'student').subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.notifications = response.notifications.map((notif: any) => ({
+            id: notif.id,
+            title: notif.title,
+            message: notif.message,
+            time: this.formatTime(notif.created_at),
+            type: notif.type,
+            read: notif.read
+          }));
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading notifications:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  formatTime(dateString: string): string {
+    if (!dateString) return 'just now';
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return 'just now';
+    if (diffMins < 60) return `${diffMins} min ago`;
+    if (diffHours < 24) return `${diffHours} hr ago`;
+    if (diffDays < 7) return `${diffDays} day ago`;
+    return date.toLocaleDateString();
+  }
 
   get unreadCount(): number {
     return this.notifications.filter(n => !n.read).length;
   }
 
   markAsRead(notif: Notification) {
-    notif.read = true;
+    if (notif.id) {
+      this.authService.markNotificationAsRead(notif.id).subscribe({
+        next: () => {
+          notif.read = true;
+        },
+        error: (error) => {
+          console.error('Error marking notification as read:', error);
+        }
+      });
+    }
   }
 
   markAllAsRead() {
-    this.notifications.forEach(n => (n.read = true));
-  }
-
-  deleteNotification(notif: Notification) {
-    this.notifications = this.notifications.filter(n => n !== notif);
-  }
-
-  clearAll() {
-    this.notifications = [];
+    this.authService.markAllNotificationsAsRead(this.userId, 'student').subscribe({
+      next: () => {
+        this.notifications.forEach(n => n.read = true);
+      },
+      error: (error) => {
+        console.error('Error marking all notifications as read:', error);
+      }
+    });
   }
 
   getIcon(type: string): string {
@@ -82,6 +102,13 @@ export class NotificationsComponent {
       case 'warning': return '⚠️';
       case 'error': return '❌';
       default: return 'ℹ️';
+    }
+  }
+
+  logout() {
+    if (confirm('Are you sure you want to log out your account?')) {
+      this.authService.logout();
+      this.router.navigate(['/login']);
     }
   }
 }

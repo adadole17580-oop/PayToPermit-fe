@@ -6,6 +6,7 @@ import { HomePageComponent } from './homepage/hp.component';
 import { LoginComponent } from './auth/signin/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetPassComponent } from './auth/resetpass/resetpass.component';
+import { ResetInstructionsComponent } from './auth/resetinstructions/resetinstructions.component';
 
 import { AdminDashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminHistoryComponent } from './admin/paymenthistory/history.component';
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPassComponent },
+  { path: 'reset-instructions', component: ResetInstructionsComponent},
 
   {
     path: 'admin',

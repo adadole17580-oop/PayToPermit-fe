@@ -5,12 +5,12 @@
 
     <nav>
       <button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
-      <button routerLink="/admin/history" routerLinkActive="active">Payment History</button>      
+      <button routerLink="/admin/history" routerLinkActive="active">Payment History</button>
       <button routerLink="/admin/notifs" routerLinkActive="active">Notifications</button>
       <button routerLink="/admin/reports" routerLinkActive="active">Reports</button>
     </nav>
 
-    <button routerLink="/login" class="logout">Sign Out</button>
+    <button class="logout" (click)="logout()">Sign Out</button>
   </aside>
 
   <div class="main">
@@ -74,17 +74,11 @@
             <td class="actions">
               <button (click)="viewReceipt(receipt)">View</button>
 
-              <button 
-                class="approve"
-                (click)="approve(receipt)"
-                [disabled]="receipt.status === 'Approved'">
+              <button class="approve" *ngIf="receipt.status === 'Pending'" (click)="approve(receipt)">
                 Approve
               </button>
 
-              <button 
-                class="reject"
-                (click)="reject(receipt)"
-                [disabled]="receipt.status === 'Rejected'">
+              <button class="reject" *ngIf="receipt.status === 'Pending'" (click)="reject(receipt)">
                 Reject
               </button>
             </td>

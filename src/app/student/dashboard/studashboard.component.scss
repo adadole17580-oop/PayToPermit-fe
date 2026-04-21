@@ -57,6 +57,10 @@
   cursor: pointer;
   background: var(--c-beige);
   transition: var(--transition);
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+
   
   &:hover {
     border-color: var(--c-maroon);
@@ -64,7 +68,7 @@
   }
 
   button {
-    margin-top: 15px;
+    margin-top: 10px;
     background: var(--c-white);
     color: var(--c-text-main);
     border: 1px solid var(--c-border);

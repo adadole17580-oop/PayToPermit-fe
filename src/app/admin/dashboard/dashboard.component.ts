@@ -1,52 +1,81 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 interface Receipt {
+  id: number;
   name: string;
   date: string;
-  status: 'Approved' | 'Pending' | 'Rejected';
+  status: 'Pending' | 'Approved' | 'Rejected';
   permit?: string;
 }
 
 @Component({
-  selector: 'app-admindashboard',
+  selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent implements OnInit {
+  constructor(private router: Router, private authService: AuthService) {}
 
-  receipts: Receipt[] = [
-    {
-      name: 'John Doe',
-      date: '01/29/2026',
-      status: 'Approved',
-      permit: 'PMT2600129'
-    },
-    {
-      name: 'Dawn Nicole',
-      date: '12/20/2025',
-      status: 'Pending'
-    },
-    {
-      name: 'Ayana Faye',
-      date: '01/22/2026',
-      status: 'Pending'
-    }
-  ];
+  adminId: string = 'ADM001'; // This should come from auth service
+  receipts: Receipt[] = [];
+  isLoading = false;
+  stats = {
+    total: 0,
+    approved: 0,
+    rejected: 0,
+    pending: 0
+  };
+  sequence = 1;
+
+  ngOnInit() {
+    this.loadSubmissions();
+    this.loadStats();
+  }
+
+  loadSubmissions() {
+    this.isLoading = true;
+    this.authService.getAllSubmissions().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.receipts = response.submissions;
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading submissions:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  loadStats() {
+    this.authService.getPaymentStats().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.stats = response.stats;
+        }
+      },
+      error: (error) => {
+        console.error('Error loading stats:', error);
+      }
+    });
+  }
 
   get pendingCount() {
-    return this.receipts.filter(r => r.status === 'Pending').length;
+    return this.stats.pending;
   }
 
   get approvedCount() {
-    return this.receipts.filter(r => r.status === 'Approved').length;
+    return this.stats.approved;
   }
 
   get rejectedCount() {
-    return this.receipts.filter(r => r.status === 'Rejected').length;
+    return this.stats.rejected;
   }
 
   viewReceipt(receipt: Receipt) {
@@ -55,11 +84,23 @@ export class AdminDashboardComponent {
 
   approve(receipt: Receipt) {
     receipt.status = 'Approved';
-    receipt.permit = 'PMT' + Math.floor(1000000 + Math.random() * 9000000);
+    const dateParts = receipt.date.split('/');
+    const day = dateParts[1]; // DD
+    const year = dateParts[2].slice(-2); // YY
+    const seq = this.sequence.toString().padStart(3, '0');
+    receipt.permit = `PM${year}${seq}${day}-${this.adminId}`;
+    this.sequence++;
   }
 
   reject(receipt: Receipt) {
     receipt.status = 'Rejected';
     receipt.permit = '';
+  }
+
+  logout() {
+    if (confirm('Are you sure you want to log out your account?')) {
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
   }
 }
