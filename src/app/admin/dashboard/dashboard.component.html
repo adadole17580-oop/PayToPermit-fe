@@ -60,25 +60,25 @@
 
         <tbody>
           <tr *ngFor="let receipt of receipts">
-            <td>{{ receipt.name }}</td>
-            <td>{{ receipt.date }}</td>
+            <td>Student {{ receipt.student_id }}</td>
+            <td>{{ receipt.upload_date | date:'short' }}</td>
 
             <td>
-              <span class="status" [ngClass]="receipt.status.toLowerCase()">
-                {{ receipt.status }}
+              <span class="status" [ngClass]="receipt.status">
+                {{ receipt.status | titlecase }}
               </span>
             </td>
 
-            <td>{{ receipt.permit || '—' }}</td>
+            <td>{{ receipt.permit_number || '—' }}</td>
 
             <td class="actions">
               <button (click)="viewReceipt(receipt)">View</button>
 
-              <button class="approve" *ngIf="receipt.status === 'Pending'" (click)="approve(receipt)">
+              <button class="approve" *ngIf="receipt.status === 'pending'" (click)="approve(receipt)">
                 Approve
               </button>
 
-              <button class="reject" *ngIf="receipt.status === 'Pending'" (click)="reject(receipt)">
+              <button class="reject" *ngIf="receipt.status === 'pending'" (click)="reject(receipt)">
                 Reject
               </button>
             </td>

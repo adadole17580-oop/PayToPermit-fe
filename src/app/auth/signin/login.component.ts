@@ -17,6 +17,7 @@ export class LoginComponent {
   password = '';
 
   selectedRole: string | null = null;
+  loginError = '';
 
   constructor(
     private router: Router,
@@ -24,13 +25,19 @@ export class LoginComponent {
   ) { }
 
   ngOnInit() {
-    this.selectedRole = localStorage.getItem('selectedRole');
+    this.selectedRole = localStorage.getItem('selectedRole') || localStorage.getItem('role') || 'student';
   }
 
   onSubmit() {
+    this.loginError = '';
 
     if (!this.email || !this.password) {
       alert('Please fill in all fields');
+      return;
+    }
+
+    if (!this.selectedRole) {
+      this.loginError = 'Please choose whether you are signing in as student or admin.';
       return;
     }
 
@@ -42,9 +49,12 @@ export class LoginComponent {
 
     this.authService.login(loginData).subscribe({
       next: (res: any) => {
-
-        const roleToUse = this.selectedRole || 'student';
+        const roleToUse = res?.user?.role || this.selectedRole || 'student';
         localStorage.setItem('role', roleToUse);
+        if (res?.user) {
+          localStorage.setItem('user', JSON.stringify(res.user));
+        }
+        localStorage.setItem('selectedRole', roleToUse);
 
         if (roleToUse === 'admin') {
           this.router.navigate(['/admin/dashboard']);
@@ -54,15 +64,7 @@ export class LoginComponent {
 
       },
       error: (err: any) => {
-        console.warn('Backend login failed, using mock login for frontend flow:', err);
-        const roleToUse = this.selectedRole || 'student';
-        localStorage.setItem('role', roleToUse);
-
-        if (roleToUse === 'admin') {
-          this.router.navigate(['/admin/dashboard']);
-        } else {
-          this.router.navigate(['/student/dashboard']);
-        }
+        this.loginError = err?.error?.message || 'Invalid credentials. Please try again.';
       }
     });
   }

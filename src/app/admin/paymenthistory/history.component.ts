@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -8,7 +8,7 @@ interface PaymentRecord {
   permit: string;
   date: string;
   amount: number;
-  status: 'Approved' | 'Rejected';
+  status: 'Approved' | 'Rejected' | 'Pending';
   id?: number;
 }
 
@@ -19,14 +19,25 @@ interface PaymentRecord {
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
-export class AdminHistoryComponent implements OnInit {
+export class AdminHistoryComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private authService: AuthService) {}
 
   isLoading = false;
   records: PaymentRecord[] = [];
+  private refreshTimer: ReturnType<typeof setInterval> | null = null;
 
   ngOnInit() {
     this.loadPaymentHistory();
+    this.refreshTimer = setInterval(() => {
+      this.loadPaymentHistory();
+    }, 10000);
+  }
+
+  ngOnDestroy() {
+    if (this.refreshTimer) {
+      clearInterval(this.refreshTimer);
+      this.refreshTimer = null;
+    }
   }
 
   loadPaymentHistory() {
@@ -34,16 +45,14 @@ export class AdminHistoryComponent implements OnInit {
     this.authService.getAllSubmissions(100).subscribe({
       next: (response) => {
         if (response.success) {
-          // Filter only approved and rejected submissions
           this.records = response.submissions
-            .filter((sub: any) => sub.status !== 'pending')
             .map((sub: any) => ({
-              name: sub.student_name,
+              name: sub.student_name || sub.student_id,
               permit: sub.permit_number || 'N/A',
               date: new Date(sub.upload_date).toLocaleDateString(),
               amount: 150, // Default amount - you could add this to the database
-              status: sub.status.charAt(0).toUpperCase() + sub.status.slice(1) as 'Approved' | 'Rejected',
-              id: sub.id
+              status: sub.status.charAt(0).toUpperCase() + sub.status.slice(1) as 'Approved' | 'Rejected' | 'Pending',
+              id: sub.id ?? sub.submission_id
             }));
         }
         this.isLoading = false;

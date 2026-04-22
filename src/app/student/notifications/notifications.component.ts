@@ -21,11 +21,22 @@ interface Notification {
 export class NotificationsComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
 
-  userId: string = '2024-00123'; // This should come from auth service
+  userId: string = 'student001';
   isLoading = false;
   notifications: Notification[] = [];
 
   ngOnInit() {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        if (user?.id) {
+          this.userId = user.id;
+        }
+      } catch (error) {
+        console.warn('Invalid user data in localStorage:', error);
+      }
+    }
     this.loadNotifications();
   }
 

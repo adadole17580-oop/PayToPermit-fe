@@ -26,11 +26,7 @@ export class RegisterComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    this.selectedRole = localStorage.getItem('selectedRole');
-
-    if (!this.selectedRole) {
-      this.router.navigate(['/']);
-    }
+    this.selectedRole = localStorage.getItem('selectedRole') || localStorage.getItem('role') || 'student';
   }
 
   onRegister() {
@@ -39,7 +35,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const roleToUse = this.selectedRole || localStorage.getItem('selectedRole');
+    const roleToUse = this.selectedRole || localStorage.getItem('selectedRole') || 'student';
     if (!roleToUse) {
       alert('No role found');
       this.router.navigate(['/']);
@@ -60,19 +56,20 @@ export class RegisterComponent implements OnInit {
     this.authService.register(registerData).subscribe({
       next: (res: any) => {
         if (res.success) {
-          localStorage.setItem('role', roleToUse);
-          if (roleToUse === 'admin') {
-            this.router.navigate(['/admin/dashboard']);
-          } else {
-            this.router.navigate(['/student/dashboard']);
-          }
+          alert('Registration successful. Please sign in with your new account.');
+          this.router.navigate(['/login']);
         } else {
           alert(res.message || 'Registration failed');
         }
       },
       error: (err: any) => {
         console.error('Registration request failed:', err);
-        alert('Registration failed. Please try again.');
+        if (err?.status === 409) {
+          alert('This email is already registered. Please sign in instead.');
+          this.router.navigate(['/login']);
+          return;
+        }
+        alert(err?.error?.message || 'Registration failed. Please try again.');
       }
     });
   }

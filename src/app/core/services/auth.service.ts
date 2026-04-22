@@ -59,8 +59,8 @@ export class AuthService {
     return this.http.put(`${this.baseUrl}/payments/${submissionId}/approve`, { adminId });
   }
 
-  rejectSubmission(submissionId: number, adminId: string): Observable<any> {
-    return this.http.put(`${this.baseUrl}/payments/${submissionId}/reject`, { adminId });
+  rejectSubmission(submissionId: number, adminId: string, reason?: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/payments/${submissionId}/reject`, { adminId, reason });
   }
 
   // Student

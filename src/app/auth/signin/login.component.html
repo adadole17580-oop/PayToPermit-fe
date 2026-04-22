@@ -14,11 +14,11 @@
 
       <div class="form-group">
         <label for="email">University Email</label>
-        <input id="email" type="email" name="email" [(ngModel)]="email" placeholder="name@liceo.edu.ph" required email
-          pattern=".+@liceo\.edu\.ph" #emailInput="ngModel" />
+        <input id="email" type="email" name="email" [(ngModel)]="email" placeholder="name@example.com" required email
+          #emailInput="ngModel" />
 
         <div *ngIf="emailInput.touched && emailInput.invalid" class="error">
-          Please enter a valid liceo.edu.ph email address.
+          Please enter a valid email address.
         </div>
       </div>
 
@@ -35,6 +35,10 @@
       <button type="submit" [disabled]="!loginForm.valid">
         Access Portal
       </button>
+
+      <div *ngIf="loginError" class="error" style="margin-top: 10px;">
+        {{ loginError }}
+      </div>
 
     </form>
 

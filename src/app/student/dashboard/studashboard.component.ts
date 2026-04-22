@@ -15,13 +15,30 @@ import { AuthService } from '../../core/services/auth.service';
 export class StudashboardComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
 
-  studentId: string = '2024-00123'; // This should come from user service/auth in production
+  studentId: string = 'student001';
   showUploadModal = false;
   isLoading = false;
+  isUploading = false;
 
   submissions: any[] = [];
 
   ngOnInit() {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        if (user?.id && user?.role === 'student') {
+          this.studentId = user.id;
+        }
+      } catch (error) {
+        console.warn('Invalid user data in localStorage:', error);
+      }
+    }
+
+    // Prevent bad IDs from causing upload FK errors.
+    if (!this.studentId || !this.studentId.toLowerCase().startsWith('student')) {
+      this.studentId = 'student001';
+    }
     this.loadSubmissions();
   }
 
@@ -55,10 +72,13 @@ export class StudashboardComponent implements OnInit {
   }
 
   handleUpload(file: File) {
+    if (this.isUploading) return;
+
     // Upload via AuthService
     const formData = new FormData();
     formData.append('file', file);
     formData.append('studentId', this.studentId);
+    this.isUploading = true;
 
     this.authService.uploadPaymentProof(formData).subscribe({
       next: (response) => {
@@ -66,11 +86,15 @@ export class StudashboardComponent implements OnInit {
           alert('File uploaded successfully!');
           this.loadSubmissions(); // Reload submissions
           this.closeUploadModal();
+        } else {
+          alert(response?.message || 'Upload was not successful.');
         }
+        this.isUploading = false;
       },
       error: (error) => {
         console.error('Upload error:', error);
-        alert('Error uploading file');
+        alert(error?.error?.message || 'Error uploading file');
+        this.isUploading = false;
       }
     });
   }
